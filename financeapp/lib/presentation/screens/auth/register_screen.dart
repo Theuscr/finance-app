@@ -70,7 +70,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppTheme.primaryColor,
+      backgroundColor: AppTheme.primaryGreen,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
@@ -225,7 +225,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                         onPressed: () => Navigator.pop(context),
                         child: const Text(
                           'Já tenho uma conta',
-                          style: TextStyle(color: AppTheme.primaryColor),
+                          style: TextStyle(color: AppTheme.primaryGreen),
                         ),
                       ),
                     ],

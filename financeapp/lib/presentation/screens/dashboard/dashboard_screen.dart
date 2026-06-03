@@ -1,3 +1,5 @@
+import 'package:finance_app/domain/entities/transaction_entity.dart';
+import 'package:finance_app/data/models/transaction_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -61,7 +63,7 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen>
             expandedHeight: 200,
             floating: false,
             pinned: true,
-            backgroundColor: AppTheme.primaryColor,
+            backgroundColor: AppTheme.primaryGreen,
             flexibleSpace: FlexibleSpaceBar(
               background: _buildAppBarBackground(context, userId, userName),
             ),
@@ -73,7 +75,7 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen>
             ],
             bottom: TabBar(
               controller: _tabController,
-              indicatorColor: AppTheme.accentColor,
+              indicatorColor: AppTheme.primaryGreen,
               indicatorWeight: 3,
               labelColor: Colors.white,
               unselectedLabelColor: Colors.white54,
@@ -115,7 +117,7 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen>
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: [AppTheme.primaryColor, Color(0xFF2D3499)],
+          colors: [AppTheme.primaryGreen, AppTheme.primaryDark],
         ),
       ),
       child: Column(
@@ -403,7 +405,7 @@ class _SectionHeader extends StatelessWidget {
         if (onSeeAll != null)
           TextButton(
             onPressed: onSeeAll,
-            child: const Text('Ver todas', style: TextStyle(color: AppTheme.primaryColor)),
+            child: const Text('Ver todas', style: TextStyle(color: AppTheme.primaryGreen)),
           ),
       ],
     );
@@ -451,7 +453,7 @@ class _FilterChip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final c = color ?? AppTheme.primaryColor;
+    final c = color ?? AppTheme.primaryGreen;
     return GestureDetector(
       onTap: onTap,
       child: AnimatedContainer(
@@ -473,3 +475,4 @@ class _FilterChip extends StatelessWidget {
     );
   }
 }
+

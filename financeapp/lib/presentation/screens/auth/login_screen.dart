@@ -69,7 +69,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppTheme.primaryColor,
+      backgroundColor: AppTheme.primaryGreen,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
@@ -228,7 +228,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                                 const TextSpan(
                                   text: 'Cadastre-se',
                                   style: TextStyle(
-                                    color: AppTheme.primaryColor,
+                                    color: AppTheme.primaryGreen,
                                     fontWeight: FontWeight.w600,
                                   ),
                                 ),

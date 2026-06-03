@@ -41,7 +41,6 @@ class FirebaseDataSource {
     final query = await _firestore
         .collection('transactions')
         .where('userId', isEqualTo: userId)
-        .orderBy('dateMillis', descending: true)
         .get();
     return query.docs.map((doc) {
       final data = doc.data();
@@ -63,7 +62,6 @@ class FirebaseDataSource {
     return _firestore
         .collection('transactions')
         .where('userId', isEqualTo: userId)
-        .orderBy('dateMillis', descending: true)
         .snapshots()
         .map((snapshot) => snapshot.docs.map((doc) {
               final data = doc.data();

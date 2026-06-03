@@ -55,7 +55,7 @@ class NewsDataSource {
       ),
       NewsArticle(
         title: 'Dólar cai frente ao real',
-        description: 'A moeda americana recuou 0,8% e fechou abaixo de R$ 5,00 nesta sexta-feira.',
+        description: 'A moeda americana recuou 0,8% e fechou abaixo de R\$ 5,00 nesta sexta-feira.',
         url: 'https://economia.uol.com.br',
         source: 'UOL Economia',
         publishedAt: DateTime.now().subtract(const Duration(hours: 8)),

@@ -28,12 +28,12 @@ class NewsCard extends StatelessWidget {
                 width: 56,
                 height: 56,
                 decoration: BoxDecoration(
-                  color: AppTheme.primaryColor.withOpacity(0.08),
+                  color: AppTheme.primaryGreen.withOpacity(0.08),
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: const Icon(
                   Icons.article_outlined,
-                  color: AppTheme.primaryColor,
+                  color: AppTheme.primaryGreen,
                   size: 28,
                 ),
               ),
@@ -61,13 +61,13 @@ class NewsCard extends StatelessWidget {
                         Container(
                           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
                           decoration: BoxDecoration(
-                            color: AppTheme.primaryColor.withOpacity(0.08),
+                            color: AppTheme.primaryGreen.withOpacity(0.08),
                             borderRadius: BorderRadius.circular(6),
                           ),
                           child: Text(
                             article.source,
                             style: const TextStyle(
-                              color: AppTheme.primaryColor,
+                              color: AppTheme.primaryGreen,
                               fontSize: 10,
                               fontWeight: FontWeight.w600,
                             ),
