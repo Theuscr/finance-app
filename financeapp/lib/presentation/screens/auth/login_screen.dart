@@ -3,7 +3,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/theme/app_theme.dart';
 import '../../viewmodels/auth_viewmodel.dart';
-import '../dashboard/dashboard_screen.dart';
+import '../main_scaffold.dart';
 import 'register_screen.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
@@ -43,7 +43,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     if (success) {
       Navigator.of(context).pushReplacement(
         PageRouteBuilder(
-          pageBuilder: (_, a, b) => const DashboardScreen(),
+          pageBuilder: (_, a, b) => const MainScaffold(),
           transitionsBuilder: (_, anim, __, child) =>
               FadeTransition(opacity: anim, child: child),
           transitionDuration: const Duration(milliseconds: 400),
@@ -51,19 +51,15 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
       );
     } else {
       final error = notifier.errorMessage ?? 'Erro desconhecido.';
-      _showError(error);
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(error),
+          backgroundColor: AppTheme.expenseColor,
+          behavior: SnackBarBehavior.floating,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        ),
+      );
     }
-  }
-
-  void _showError(String msg) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(msg),
-        backgroundColor: AppTheme.expenseColor,
-        behavior: SnackBarBehavior.floating,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      ),
-    );
   }
 
   @override
@@ -76,7 +72,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
             children: [
               // Header
               SizedBox(
-                height: MediaQuery.of(context).size.height * 0.35,
+                height: MediaQuery.of(context).size.height * 0.38,
                 child: Center(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -85,7 +81,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                         width: 80,
                         height: 80,
                         decoration: BoxDecoration(
-                          color: Colors.white.withOpacity(0.15),
+                          color: Colors.white.withOpacity(0.2),
                           borderRadius: BorderRadius.circular(24),
                         ),
                         child: const Icon(
@@ -98,13 +94,26 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                           .fadeIn(duration: 600.ms)
                           .scale(begin: const Offset(0.5, 0.5)),
                       const SizedBox(height: 16),
-                      const Text(
-                        'FinanceApp',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 32,
-                          fontWeight: FontWeight.w700,
-                          letterSpacing: 1.5,
+                      RichText(
+                        text: const TextSpan(
+                          children: [
+                            TextSpan(
+                              text: 'Smart',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 32,
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                            TextSpan(
+                              text: 'Wallet',
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 32,
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                          ],
                         ),
                       )
                           .animate()
@@ -114,12 +123,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       Text(
                         'Controle suas finanças com inteligência',
                         style: TextStyle(
-                          color: Colors.white.withOpacity(0.7),
-                          fontSize: 14,
+                          color: Colors.white.withOpacity(0.8),
+                          fontSize: 13,
                         ),
-                      )
-                          .animate()
-                          .fadeIn(delay: 400.ms, duration: 600.ms),
+                      ).animate().fadeIn(delay: 400.ms),
                     ],
                   ),
                 ),
@@ -128,7 +135,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
               // Form Card
               Container(
                 decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.surface,
+                  color: Theme.of(context).scaffoldBackgroundColor,
                   borderRadius: const BorderRadius.only(
                     topLeft: Radius.circular(32),
                     topRight: Radius.circular(32),
@@ -140,11 +147,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
+                      const Text(
                         'Bem-vindo de volta!',
-                        style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                              fontWeight: FontWeight.w700,
-                            ),
+                        style: TextStyle(fontSize: 22, fontWeight: FontWeight.w700),
                       ),
                       const SizedBox(height: 4),
                       Text(
@@ -171,7 +176,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       ).animate().fadeIn(delay: 600.ms).slideX(begin: -0.1),
                       const SizedBox(height: 16),
 
-                      // Password
+                      // Senha
                       TextFormField(
                         controller: _passwordController,
                         obscureText: _obscurePassword,
@@ -180,9 +185,12 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                           prefixIcon: const Icon(Icons.lock_outline),
                           suffixIcon: IconButton(
                             icon: Icon(
-                              _obscurePassword ? Icons.visibility_outlined : Icons.visibility_off_outlined,
+                              _obscurePassword
+                                  ? Icons.visibility_outlined
+                                  : Icons.visibility_off_outlined,
                             ),
-                            onPressed: () => setState(() => _obscurePassword = !_obscurePassword),
+                            onPressed: () =>
+                                setState(() => _obscurePassword = !_obscurePassword),
                           ),
                         ),
                         validator: (v) {
@@ -193,7 +201,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       ).animate().fadeIn(delay: 700.ms).slideX(begin: -0.1),
                       const SizedBox(height: 28),
 
-                      // Login Button
+                      // Botão entrar
                       ElevatedButton(
                         onPressed: _isLoading ? null : _handleLogin,
                         child: _isLoading
@@ -202,24 +210,25 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                                 width: 20,
                                 child: CircularProgressIndicator(
                                   strokeWidth: 2,
-                                  color: Colors.white,
+                                  color: Colors.black,
                                 ),
                               )
                             : const Text('Entrar'),
                       ).animate().fadeIn(delay: 800.ms),
                       const SizedBox(height: 16),
 
-                      // Register link
+                      // Cadastro
                       Center(
                         child: TextButton(
                           onPressed: () {
                             Navigator.of(context).push(
-                              MaterialPageRoute(builder: (_) => const RegisterScreen()),
+                              MaterialPageRoute(
+                                  builder: (_) => const RegisterScreen()),
                             );
                           },
                           child: RichText(
                             text: TextSpan(
-                              style: DefaultTextStyle.of(context).style,
+                              style: const TextStyle(fontSize: 14),
                               children: [
                                 TextSpan(
                                   text: 'Não tem uma conta? ',
